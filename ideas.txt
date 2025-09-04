@@ -25,6 +25,7 @@ index 0000000000000000000000000000000000000000..950f1473fdde14cf41962fe584706019
 +- path_length_over_range: Sum|Δclose| normalized by session range (H-L).
 +- total_variation_close: Sum of absolute price changes Σ|Δclose| within RTH (path length in price units).
 +
+
 +## 价格区间与相对位置特征
 +- breakout_nextret_high: Mean(next simple ret | new session high at t) within RTH.
 +- breakout_nextret_low: Mean(next simple ret | new session low at t) within RTH.
@@ -36,6 +37,7 @@ index 0000000000000000000000000000000000000000..950f1473fdde14cf41962fe584706019
 +- iqr_logret: Interquartile range (Q3−Q1) of intraday log returns within RTH.
 +- lower_shadow_ratio_mean: Mean lower shadow / range ratio in RTH; exclude zero-range bars.
 +- max_drawdown_depth_per_bar: Maximum drawdown depth divided by its duration in bars (uses close; depth as positive number).
+
 +- mean_body_to_range: Mean candlestick body-to-range ratio in RTH; exclude zero-range bars.
 +- median_position_in_range: Median normalized position of close within session range.
 +- n_peak_time_frac: Fractional bar-position when per-bar n peaks within 09:30–15:59.
