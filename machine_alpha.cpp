@@ -21,6 +21,16 @@ void bind_cube2mat_oc_efficiency_over_range(py::module& m);
 void bind_cube2mat_path_efficiency(py::module& m);
 void bind_cube2mat_path_length_over_range(py::module& m);
 void bind_cube2mat_total_variation_close(py::module& m);
+void bind_cube2mat_breakout_nextret_high(py::module& m);
+void bind_cube2mat_breakout_nextret_low(py::module& m);
+void bind_cube2mat_candle_body_to_range_mean(py::module& m);
+void bind_cube2mat_close_to_edge_distance_frac(py::module& m);
+void bind_cube2mat_doji_density(py::module& m);
+void bind_cube2mat_end_position_in_range(py::module& m);
+void bind_cube2mat_intraday_max_drawdown_close(py::module& m);
+void bind_cube2mat_iqr_logret(py::module& m);
+void bind_cube2mat_lower_shadow_ratio_mean(py::module& m);
+void bind_cube2mat_max_drawdown_depth_per_bar(py::module& m);
 
 PYBIND11_MODULE(machine_alpha, m) {
     m.doc() = "collection of intraday features";
@@ -43,4 +53,14 @@ PYBIND11_MODULE(machine_alpha, m) {
     bind_cube2mat_path_efficiency(m);
     bind_cube2mat_path_length_over_range(m);
     bind_cube2mat_total_variation_close(m);
+    bind_cube2mat_breakout_nextret_high(m);
+    bind_cube2mat_breakout_nextret_low(m);
+    bind_cube2mat_candle_body_to_range_mean(m);
+    bind_cube2mat_close_to_edge_distance_frac(m);
+    bind_cube2mat_doji_density(m);
+    bind_cube2mat_end_position_in_range(m);
+    bind_cube2mat_intraday_max_drawdown_close(m);
+    bind_cube2mat_iqr_logret(m);
+    bind_cube2mat_lower_shadow_ratio_mean(m);
+    bind_cube2mat_max_drawdown_depth_per_bar(m);
 }
