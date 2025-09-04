@@ -8,7 +8,7 @@
 
 namespace py = pybind11;
 
-void cube2mat_vwap(py::array_t<float, py::array::c_style | py::array::forcecast>& result,
+void alpha_example(py::array_t<float, py::array::c_style | py::array::forcecast>& result,
                    const py::dict& cubes_map) {
     if (!cubes_map.contains("close") || !cubes_map.contains("volume")) {
         throw std::runtime_error("cubes_map must contain 'close' and 'volume'");
@@ -62,8 +62,8 @@ void cube2mat_vwap(py::array_t<float, py::array::c_style | py::array::forcecast>
     }
 }
 
-void bind_cube2mat_vwap(py::module& m) {
-    m.def("cube2mat_vwap", &cube2mat_vwap,
+void bind_alpha_example(py::module& m) {
+    m.def("alpha_example", &alpha_example,
           py::arg("result"), py::arg("cubes_map"),
-          "Compute VWAP over all timesteps for each (i,j).");
+          "Alpha Example: Compute VWAP over all timesteps for each (i,j).");
 }

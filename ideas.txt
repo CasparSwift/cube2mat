@@ -1,0 +1,357 @@
+diff --git a//dev/null b/ideas.txt
+index 0000000000000000000000000000000000000000..950f1473fdde14cf41962fe584706019cc35923d 100644
+--- a//dev/null
++++ b/ideas.txt
+@@ -0,0 +1,350 @@
++## 分布不均衡类特征
++- gini_absret: Gini concentration of |logret| magnitudes within RTH.
++- n_entropy_concentration: 1 - normalized entropy of n distribution across RTH bars (09:30–15:59).
++- n_gini: Gini index of trade count distribution across RTH bars.
++- ret_skew: Sample-adjusted skewness of intraday log returns.
++- rv_entropy_concentration: 1 - normalized entropy of realized-variance contributions.
++- rv_gini_concentration: Gini concentration of realized variance contributions r^2.
++- trade_size_gini: Gini of per-bar average trade size (volume/n) across RTH bars.
++- trend_resid_kurt: Adjusted excess kurtosis of residuals from linear trend close~time in RTH.
++- trend_resid_skew: Adjusted skewness of residuals from linear trend close~time in RTH.
++- volume_entropy_concentration: 1 - normalized Shannon entropy of volume distribution across intraday bars.
++- volume_gini: Gini of per-bar volume distribution in RTH.
++- volume_median_to_mean_ratio: Median(volume)/Mean(volume) within RTH; concentration/robustness proxy for volume distribution.
++- volume_skew: Skewness of volume distribution across RTH bars.
++
++## 路径效率与轨迹特征
++- katz_fd_close: Katz fractal dimension of the close path during RTH (09:30–15:59); higher = more tortuous.
++- oc_efficiency_over_range: Absolute OC move normalized by session range (H-L).
++- path_efficiency: Path straightness: |last_close - first_open| / sum|Δclose| in RTH.
++- path_length_over_range: Sum|Δclose| normalized by session range (H-L).
++- total_variation_close: Sum of absolute price changes Σ|Δclose| within RTH (path length in price units).
++
++## 价格区间与相对位置特征
++- breakout_nextret_high: Mean(next simple ret | new session high at t) within RTH.
++- breakout_nextret_low: Mean(next simple ret | new session low at t) within RTH.
++- candle_body_to_range_mean: Mean of |close-open|/(high-low) across RTH bars (exclude zero-range bars).
++- close_to_edge_distance_frac: Normalized edge proximity: min(C-L, H-C)/(H-L) using RTH H/L and last close.
++- doji_density: Doji density in RTH with theta=0.1 threshold; exclude zero-range bars.
++- end_position_in_range: Position of close in the session range: (C - L) / (H - L) ∈ [0,1].
++- intraday_max_drawdown_close: Session max drawdown (fraction) computed from close during RTH.
++- iqr_logret: Interquartile range (Q3−Q1) of intraday log returns within RTH.
++- lower_shadow_ratio_mean: Mean lower shadow / range ratio in RTH; exclude zero-range bars.
++- max_drawdown_depth_per_bar: Maximum drawdown depth divided by its duration in bars (uses close; depth as positive number).
++- mean_body_to_range: Mean candlestick body-to-range ratio in RTH; exclude zero-range bars.
++- median_position_in_range: Median normalized position of close within session range.
++- n_peak_time_frac: Fractional bar-position when per-bar n peaks within 09:30–15:59.
++- near_high_time_share_10bp: Fraction of bars with close near session HIGH within 10bp.
++- near_low_time_share_10bp: Fraction of bars with close near session LOW within 10bp.
++- new_high_count: Number of new intraday highs within 09:30–15:59.
++- new_low_count: Number of new intraday lows within 09:30–15:59.
++- parkinson_vol: Parkinson volatility from session high/low: sqrt((ln(H/L))^2 / (4 ln 2)).
++- post_range_hl: After-hours range: max(high) - min(low) between 16:00–23:59.
++- pre_range_hl: Pre-market range: max(high) - min(low) between 00:00–09:29.
++- range_on_logvolume_beta: OLS beta of (high-low) on log(volume) in RTH.
++- range_per_trade: Price range divided by total trade count in RTH.
++- range_to_rv_sqrt_ratio: Log session range log(high_max/low_min) divided by sqrt(Σ r^2) using RTH log-returns.
++- range_up_down_ratio: Sum(high-low) on up bars divided by that on down bars.
++- spectral_lowfreq_share_close: Share of low-frequency FFT energy of detrended close (p=10%).
++- time_share_mid_range_20pct: Fraction of bars with close inside the middle 20% of session range.
++- u_shape_corr_volume: Correlation of volume with U-shape time template (early/late high).
++- upper_shadow_ratio_mean: Mean upper shadow / range ratio in RTH; exclude zero-range bars.
++- vwap_position_in_range: Position of session VWAP in the day's H-L range: (VWAP - L)/(H - L).
++- wavelet_energy_highfreq_share: Haar-DWT high-frequency energy share of detrended close (L=3).
++- wavelet_energy_lowfreq_share: Haar-DWT low-frequency energy share of detrended close (L=3).
++
+
+
++## 时段与季节性特征
++- absret_center_of_mass_time: Weighted time centroid by |log return| within RTH, normalized to [0,1].
++- absret_peak_time_frac: Fraction of session minutes when |ret| peaks.
++- absret_peak_time_min: Fraction of trading session elapsed when |ret| reaches its maximum.
++- ac1_n: Lag-1 autocorrelation of trade counts n across intraday bars.
++- ac1_volume: Lag-1 autocorrelation of volume across intraday bars.
++- ac_ret_lag2: Lag-2 autocorrelation of intraday log returns in RTH.
++- ac_ret_lag5: Lag-5 autocorrelation of intraday log returns in RTH.
++- accel_align_rate: Fraction of time with curvature pushing in the velocity direction.
++- accel_over_vel_std_ratio: Std(second diff of close) / Std(first diff of close) in RTH.
++- ar1_ret_coef: AR(1) coefficient φ for intraday simple returns ret=close.pct_change(), within 09:30–15:59.
++- bars_to_50pct_volume_time_frac: In time order, fraction of RTH bars elapsed when cumulative volume first reaches 50% of the day's total.
++- close_15m_absret_share: Share of absolute returns in last 15 minutes; ret by close.pct_change.
++- close_15m_volume_share: Share of volume in last 15 minutes.
++- close_on_logn_beta: OLS slope of close on log(n) within 09:30–15:59; NaN if insufficient.
++- close_on_logvolume_beta: OLS slope of close on log(volume) within 09:30–15:59; NaN if insufficient.
++- close_on_n_beta: OLS slope of close on number of trades n within 09:30–15:59.
++- close_on_volume_beta: OLS slope of close on volume within 09:30–15:59; NaN if insufficient or var(volume)=0.
++- close_on_vwap_beta: OLS slope (beta) of close on vwap within 09:30–15:59; NaN if insufficient.
++- close_to_open_ret: Simple return from last close back to first open within same RTH.
++- clv_session: Session Close Location Value in RTH using session H/L and last close.
++- corr_absret_volume: Pearson correlation between |log returns| and volume within session.
++- corr_close_n: Pearson correlation between close and n within 09:30–15:59.
++- corr_close_volume: Pearson correlation between close and volume within 09:30–15:59.
++- corr_close_vwap: Correlation of close and vwap within RTH.
++- cv_close: Coefficient of variation of close: std/mean within 09:30–15:59.
++- diff_close_vwap_on_n_beta: OLS slope of (close - vwap) on n within 09:30–15:59.
++- diff_close_vwap_on_volume_beta: OLS slope of (close - vwap) on volume within 09:30–15:59.
++- diff_close_vwap_trend_slope: OLS slope of (close - vwap) on minutes-since-09:30 within 09:30–15:59.
++- down_bar_share: Share of bars with negative simple return within the session.
++- duration_since_last_vwap_cross_frac: Session fraction since last VWAP crossing (stickiness).
++- ema20_trend_align_share: Share of RTH bars where sign(Δclose) == sign(ΔEMA20(close)); zeros ignored.
++- garman_klass_session_vol: Session-level Garman–Klass volatility using aggregated O/H/L/C.
++- gk_var_sum_ohlc: Sum of per-bar GK variance across the session (clipped at 0).
++- hurst_rs_ret: R/S Hurst exponent estimated from intraday log returns.
++- impact_slope_price_cumn: OLS beta of (close - first_open) on cumulative n (RTH).
++- impact_slope_price_cumvol: OLS slope of (close - first_open) on cumulative volume within 09:30–15:59; NaN if insufficient.
++- intraday_max_drawup_close: Max drawup using close (RTH).
++- jump_count_local_q95: Count of |logret| exceeding its 95% session quantile.
++- ljung_box_q_5: Ljung-Box Q statistic at lags 1..5 for intraday log returns.
++- max_absret_value: Session max |simple return| in RTH.
++- mean_abs_vwap_gap: Mean of |close - vwap| during RTH; NaN if no valid bars.
++- mean_close_vwap_rel_diff: Average (close - vwap)/vwap over RTH bars.
++- midday_lull_rv_ratio: RV density at midday vs session average.
++- midday_volume_ratio: Midday (12-13h) mean volume / session mean volume.
++- midrange_cross_count: Count of sign flips of (close − midrange) where midrange = (H+L)/2 using RTH session H/L; zeros ignored.
++- motif_ascending_share_m3_close: Share of 3-bar windows where close is strictly increasing (ordinal motif [0,1,2]) within RTH.
++- motif_zigzag_share_m3_close: Share of 3-bar windows where the middle close is a strict local extremum (peak or trough) within RTH.
++- n_burstiness: Burstiness of trade counts n across intraday bars: (std-mean)/(std+mean).
++- n_fano_factor: Fano factor of n across intraday bars: Var(n)/Mean(n).
++- n_front_loading_score: 2*AUC(cumN vs time fraction)-1 for n in 09:30–15:59; NaN if no trades.
++- n_hhi: Herfindahl index of trade count (n) distribution across intraday bars.
++- n_peak_time_min: Fraction of session elapsed (by minutes) when per-bar n peaks within 09:30–15:59.
++- near_close_ramp_slope_10m: Tail 10-minute linear slope of close vs time.
++- open_15m_absret_share: Share of absolute returns in first 15 minutes; ret by close.pct_change.
++- open_15m_volume_share: Share of volume in first 15 minutes; sum(vol in t<15) / sum(vol all).
++- open_to_close_ret: Simple return from first open to last close within RTH.
++- partial_corr_absret_volume_time: Partial corr(|logret|, volume | time) within RTH.
++- partial_corr_close_n_time: Partial correlation between close and n controlling for time within 09:30–15:59.
++- partial_corr_close_volume_time: Partial correlation between close and volume controlling for time within 09:30–15:59.
++- partial_corr_vwapdev_volume_time: Partial corr(|rel VWAP deviation|, volume | time) in RTH.
++- post_mean_close: After-hours mean(close) between 16:00–23:59.
++- post_std_close: After-hours std(close) between 16:00–23:59; NaN if <3 ticks.
++- post_std_ret: After-hours std of intraday returns (pct_change of close) 16:00–23:59; NaN if <3 returns.
++- pre_mean_close: Pre-market mean(close) between 00:00–09:29.
++- pre_std_close: Pre-market std(close) between 00:00–09:29; NaN if <3 ticks.
++- pre_std_ret: Pre-market std of intraday returns (pct_change of close) 00:00–09:29; NaN if <3 returns.
++- premium_close_vwap_up_minus_down: Mean(close-vwap|up) minus mean(close-vwap|down).
++- premkt_gap_fill_ratio: Gap-fill ratio vs premarket: -(close_RTH_last - open_RTH_first) / (open_RTH_first - premarket_last_close). 1=完全回补，>1=过度回补。
++- price_above_median_share: Share of RTH bars with close strictly above the RTH median close.
++- relprice_log_elasticity_n: Elasticity: slope of log(close/anchor) on log(n) within 09:30–15:59.
++- relprice_log_elasticity_volume: Elasticity: slope of log(close/anchor) on log(volume) within 09:30–15:59.
++- ret_es_q05: 5% ES (expected shortfall) of intraday log returns (RTH).
++- ret_excess_kurtosis: Sample-adjusted excess kurtosis of intraday log returns.
++- ret_next_on_vwapdev_beta: Beta of next ret on (close-vwap)/vwap deviation (RTH).
++- ret_var_q05: 5% quantile VaR of intraday log returns (RTH).
++- rms_vwap_dev_rel: sqrt(mean(((close-vwap)/vwap)^2)) across RTH bars.
++- rogers_satchell_session_vol: Session-level Rogers–Satchell volatility using aggregated O/H/L/C.
++- run_count_total: Total number of sign runs in intraday log-returns (zeros break runs).
++- rv_close_vwap_diff: Realized variance of (close - vwap): sum of squared first differences.
++- rv_cond_above_vwap: Sum of r^2 (logret) while close>vwap within RTH.
++- rv_cond_below_vwap: Sum of r^2 (logret) while close≤vwap within RTH.
++- rv_front_loading_score: 2*AUC(cum RV fraction vs time fraction)-1 within RTH.
++- rv_last30m_share: Share of realized variance contributed by the last 30 minutes of the session.
++- rv_logret: Realized variance using log returns: sum(diff(log(close))^2).
++- rv_logret_15m: Realized variance of log returns on 15-minute resampled close within 09:30–15:59.
++- rv_logret_30m: Realized variance using log returns on 30-minute resampled close in 09:30–15:59.
++- rv_logret_5m: Realized variance of log returns on 5-minute resampled close within 09:30–15:59.
++- rv_per_min_logret: RV per-minute intensity: RV divided by session total minutes (389).
++- rv_share_above_vwap: Share of realized variance (log ret) contributed while close>vwap.
++- shock_calm_time_median_q50: Median bars needed after a |r|≥Q90 event for |r| to drop to ≤ median(|r|) again (log-returns, RTH).
++- spearman_close_n: Spearman rank correlation between close and n within 09:30–15:59.
++- spearman_close_volume: Spearman rank correlation between close and volume within 09:30–15:59.
++- spectral_entropy_close: Normalized spectral entropy (0..1) of detrended close.
++- std_close: Sample std (ddof=1) of close within 09:30–15:59; NaN if <2 ticks.
++- std_close_vwap_diff: Sample std of (close - vwap) within 09:30–15:59.
++- std_n: Intraday std of trade count (n) between 09:30–15:59; NaN if <3 ticks.
++- std_ret: Std of intraday simple returns (pct_change of close) between 09:30–15:59; NaN if <3 returns.
++- std_volume: Intraday volume std between 09:30–15:59; NaN if <3 ticks.
++- std_vwap_dev_rel: Std of (close-vwap)/vwap across RTH bars.
++- theil_sen_slope_close_time: Robust trend slope (Theil–Sen) of close vs time (minutes).
++- time_share_above_open: Fraction of bars with close >= session anchor (first open else first close).
++- time_share_above_twap: Share of bars where close > TWAP during RTH.
++- time_share_above_vwap: Fraction of bars with close > vwap during the session.
++- time_to_20pct_volume_frac: Fraction of session minutes to reach 20% cumulative volume.
++- time_to_20pct_volume_min: Fraction of trading session required to reach 20% of cumulative volume.
++- time_to_50pct_volume_frac: Session fraction to reach 50% of cumulative volume.
++- time_to_50pct_volume_min: Absolute minutes required to reach 50% of session volume.
++- time_to_first_extreme_q90_absret_frac: Fraction of RTH returns elapsed when |r| first crosses the 90th percentile of |r| (intraday log-returns).
++- time_to_half_openclose_ret_frac: Fraction of RTH return observations elapsed when cumulative log return first reaches 50% of |total O→C log return| (direction-aware).
++- trend_piecewise_slope_am_pm: Afternoon minus morning OLS slope of close~time within RTH.
++- trend_quad_beta1: Linear coefficient (beta1) of quadratic trend close~1+t+t^2 in RTH.
++- trend_quad_beta2: Quadratic coefficient (beta2) of close~1+t+t^2 in RTH.
++- trend_r2_close_time: R^2 of OLS close~time (minutes since 09:30) within 09:30–15:59; NaN if <2 points or var(close)=0.
++- trend_resid_std: Unbiased residual std from OLS close~time within 09:30–15:59; sqrt(SSE/(n-2)).
++- trend_slope_close_time: OLS slope of close on minutes-since-09:30 within 09:30–15:59; NaN if <2 points or var(time)=0.
++- trend_slope_tstat: t-stat of OLS slope for close~time (minutes since 09:30) within 09:30–15:59.
++- trend_slope_volume_weighted: Volume-weighted OLS slope of close~time (minutes since 09:30) within 09:30–15:59.
++- turning_point_rate_close: Fraction of interior RTH bars that are local turning points of close (sign of Δclose flips; endpoints excluded).
++- twap: Intraday mean(close) between 09:30–15:59.
++- u_shape_corr_absret: Correlation of |log return| with U-shape time template.
++- ulcer_index_close: Ulcer Index based on close drawdowns in RTH (fraction, not %).
++- up_bar_share: Share of bars with positive simple return within the session.
++- up_prob_highvol_minus_lowvol: ΔP(up): P(r>0 | volume≥Q90) − P(r>0 | volume≤Q10) using RTH log returns aligned to volume at time t.
++- variance_ratio_q10: Variance Ratio of intraday log returns with q=10 in 09:30–15:59.
++- variance_ratio_q2: Variance Ratio of intraday log returns with q=2 in 09:30–15:59.
++- variance_ratio_q5: Variance Ratio of intraday log returns with q=5 between 09:30–15:59.
++- volume_center_of_mass_time: Weighted time centroid by volume in RTH, normalized to [0,1].
++- volume_hhi: Herfindahl index of volume distribution across intraday bars.
++- volume_peak_time_frac: Fraction of session minutes when the per-bar max volume occurs.
++- volume_peak_time_min: Fraction of trading session elapsed when maximum per-bar volume occurs.
++- volume_weighted_simple_return: Volume-weighted mean of simple returns within RTH: Σ(v_t * (close_t/close_{t-1} - 1))/Σ v_t.
++- vwap_avg_run_length_above: Average length of contiguous runs with close>vwap in RTH.
++- vwap_cross_count: Count of sign flips of (close - vwap) during RTH; ignore zeros.
++- vwap_dev_ar1_halflife_bars: AR(1) half-life of (close - vwap) deviation in RTH (bars).
++- vwap_dev_ar1_phi: AR(1) phi of (close - vwap) deviation.
++- vwap_dev_bps_time_share_10bp: Time share with |close-vwap|/vwap >= 10bp.
++- vwap_dev_rel_median_abs: Median of |(close - vwap)/vwap| across RTH bars (robust VWAP deviation scale).
++- vwap_gap_tail_share_q75: Share of bars where |close - vwap| exceeds its 75th percentile during RTH; NaN if <3 bars.
++- vwap_twap_diff: VWAP - TWAP (mean(close)) within 09:30–15:59; NaN if insufficient.
++- vwap_twap_gap_rel: Relative gap between session VWAP and TWAP (mean close).
++- vwap_zscore_close_end: Z-score of last close vs session VWAP using std(close - vwap) as scale; RTH only.
++
++## 序列与运行长度特征
++- cond_reversal_after_run2: P(reversal | two consecutive same-sign simple returns).
++- early_vs_late_run_count_ratio: Run count in 09:30–10:29 divided by run count in 15:00–15:59 (sign runs of log-returns; zeros break runs).
++- max_down_run_len: Maximum consecutive length of negative-return run.
++- max_up_run_len: Maximum consecutive length of positive-return run.
++- mean_run_length_sign: Average length of consecutive non-zero sign runs (RTH).
++- quietest_stretch_maxlen_q25_absret_frac: Longest run length (as a fraction of return count) where |r| ≤ Q25(|r|) within RTH (log-returns).
++- run_balance_index: Run-balance index: (mean length of up runs − mean length of down runs) / (sum of the two means).
++- run_len_var_ratio_up_to_down: Variance of up-run lengths divided by variance of down-run lengths (zeros break runs).
++- run_length_entropy_signret: Shannon entropy of sign-run length distribution for log returns in RTH, normalized by log2(#unique lengths).
++- sign_change_rate: Rate of sign flips between consecutive simple returns (excluding zeros).
++- swing_amplitude_median: Median absolute swing amplitude per sign run (sum of returns over the run, absolute value).
++- transition_p_same_sign: Probability that consecutive simple returns have the same sign (exclude zeros).
++
++## 熵、复杂度及分形特征
++- approx_entropy_absret_m2_r02: Approximate Entropy of |log returns| with m=2, r=0.2·std(|r|) within RTH.
++- entropy_sign_ret: Normalized entropy (0..1) of simple-return sign distribution.
++- higuchi_fd_logret_kmax7: Higuchi fractal dimension estimate of log returns (k_max=7) within RTH.
++- permutation_entropy_logret_m3: Permutation entropy (m=3) of RTH log returns, normalized to [0,1] (ordinal patterns).
++- permutation_entropy_ret: Normalized permutation entropy of log returns (m=4, tau=1).
++- sample_entropy_absret_m2_r02: Sample Entropy of |log returns| with m=2, r=0.2·std(|r|) within RTH.
++- transition_entropy_signret: Conditional entropy H(S_t | S_{t-1}) of sign(log returns) over RTH, normalized by log2(2)=1.
++- volume_entropy: Normalized entropy of per-bar volume distribution (RTH).
++
++## 相关性与部分相关特征
++- corr_absret_n: Pearson correlation between |log returns| and trade count n.
++- corr_ret2_volume: Pearson correlation between squared log returns and volume.
++- corr_ret_absnextret: Corr(ret_t, |ret_{t+1}|) leverage-effect proxy.
++- corr_ret_n: Correlation of log returns and trade count n (RTH).
++- corr_ret_volume: Correlation of signed log returns and volume within RTH.
++- corr_signret_volume: Pearson correlation between sign(log-return) and volume within RTH (lag 0).
++- premkt_to_rth_ret_corr: Sign consistency proxy between pre-market and RTH total log returns.
++- spearman_absret_volume: Spearman rank correlation between |log returns| and volume in RTH.
++- xcorr_n_absret_lag1: Lead-lag corr: trades count leads |logret| by 1 bar.
++- xcorr_sign_volume_leadlag_lag: Lag of peak |corr(sign(ret), volume shift)| over [-5,5] in RTH.
++- xcorr_sign_volume_leadlag_peak: Peak |corr(sign(ret), volume shift)| over lags [-5,5] in RTH.
++- xcorr_volume_absret_lag1: Corr(volume_t, |logret_{t+1}|) in RTH; lead-lag (volume leads).
++
++## 趋势与回归类特征
++- absret_on_sqrtn_beta: Elasticity of |logret| to sqrt(n) per bar.
++- absret_sqrtvol_slope: OLS slope of |ret| on sqrt(volume) within 09:30–15:59; NaN if insufficient.
++- impact_elasticity_log: OLS slope of log|logret| on log(volume) within 09:30–15:59.
++- impact_reversion_beta1: OLS slope of next simple return on current volume within 09:30–15:59.
++- kyle_lambda_lead1_beta: Beta of ret_{t+1} on sign(ret_t)*volume_t (Kyle λ proxy).
++- kyle_lambda_proxy: OLS slope of |log returns| on dollar volume (vwap*volume) within 09:30–15:59.
++- log_absret_on_logvolume_beta: Impact exponent: slope of log|logret| ~ log(volume).
++- marubozu_density: Density of long-body, tiny-shadow bars (alpha=0.10, beta=0.80) in RTH.
++
++## 成交量分布类特征
++- absret_per_volume: Σ|r| (log-returns) divided by total volume in RTH.
++- amihud_illiquidity: Amihud illiquidity: mean(|ret| / (vwap*volume)) within 09:30–15:59; NaN if insufficient data.
++- avg_trade_size: Average shares per trade between 09:30–15:59: sum(volume)/sum(n); NaN if no trades.
++- cv_n: Std/mean of trade count n across RTH bars.
++- cv_trade_size: Coefficient of variation of per-bar trade size (volume/n) within 09:30–15:59.
++- cv_volume: Std/mean of volume across RTH bars.
++- mean_volume_per_trade_down: Average volume per trade on down bars.
++- mean_volume_per_trade_up: Average volume per trade on up bars.
++- mutual_info_ret_volume_q8: Mutual information I(R;V) in bits between log returns and volume using quantile bins (8×8) within RTH.
++- mvpt_up_over_down_ratio: Ratio of mean volume per trade on up vs down bars.
++- next_absret_after_top_vol_decile: E[|logret_{t+1}| | volume_t in top decile].
++- post_sum_volume: After-hours sum(volume) 16:00–23:59.
++- post_vol_ratio_to_rth: Post-market volume / RTH volume ratio for the day.
++- pre_sum_volume: Pre-market sum(volume) 00:00–09:29.
++- premkt_vol_ratio_to_rth: Pre-market volume / RTH volume ratio for the day.
++- return_contribution_top_quintile_by_volume: Share of Σ|r| contributed by bars in the top 20% of volume (threshold by volume 80th percentile).
++- rv_per_trade: Realized variance Σ r^2 divided by total trade count Σ n over RTH.
++- rv_per_volume: Realized variance divided by total volume (RTH).
++- signed_volume_imbalance: Signed volume share ∈ [-1,1] based on ret sign proxy.
++- std_trade_size: Std of per-bar trade size (volume/n) within 09:30–15:59; NaN if <3 valid bars.
++- volume_compaction_80pct_bars_frac: Fraction of RTH bars needed to accumulate 80% of total volume (bars sorted by volume descending).
++- volume_front_loading_score: 2*AUC(cumVolFraction vs timeFraction) - 1; positive=front-loaded.
++- volume_return_cokurtosis22: Co-kurtosis(2,2): E[(V-μV)^2 (R-μR)^2] / (σV^2 σR^2) for volume and log returns in RTH.
++- volume_return_coskewness: Co-skewness E[(V-μV)^2 (R-μR)] / (σV^2 σR) between volume and log returns in RTH.
++- volume_share_on_down: Share of total volume that occurs on down bars.
++- volume_share_on_up: Share of total volume that occurs on up bars.
++- volume_top3_share: Share of total RTH volume contributed by the top-3 volume bars.
++- volume_up_down_logratio: Log-ratio of volumes on up vs down bars.
++- vw_mean_absret_logret: Volume-weighted mean absolute log return.
++
++## 冲击与极端事件特征
++- count_extreme_k_sigma: Count of bars with |ret| exceeding k·σ_robust (σ from IQR) within RTH.
++- jump_count_local_k3_win21: Count of |logret| > 3×local MAD scale (win=21).
++- jump_var_bns: Jump variation proxy: max(RV - BPV, 0) with log returns.
++- mean_over_median_absret: mean(|logret|)/median(|logret|) as tail-sensitivity proxy (RTH).
++- rv_after_shock_share_k10: Share of daily RV (Σr^2) occurring in the union of 10-bar windows that follow |r|≥Q90 shock bars.
++- shock_cluster_density_q90_win5: Fraction of |r|≥Q90 shock events that have another shock within ±5 bars (clustering density).
++- shock_followthrough_score_k5: Mean of sign(r_shock) * sign(sum of next up-to-5 returns) for |r|≥Q90 events; +1 follow-through, -1 reversal.
++- shock_nextbar_reversion_ratio: Mean of [-sign(r_t)*r_{t+1}/|r_t|] over |r_t|≥Q90 events (log-returns). +值代表平均次棒反转。
++- tail_imbalance_q95_logret: Tail imbalance at 95%% of |r|: (count[r≤−t] − count[r≥+t]) / (count[r≤−t] + count[r≥+t]).
++
++## 波动率与方差类特征
++- ac1_absret: Lag-1 autocorrelation of |log returns| (volatility clustering).
++- ac1_ret2: Lag-1 autocorrelation of squared log returns (volatility clustering).
++- bpv_to_rv_ratio: Bipower Variation relative to Realized Variance (log returns).
++- early_late_vol_ratio_30m: Std(ret) first 30m vs last 30m ratio.
++- early_late_vol_ratio_60m: Std(ret)_first60 / Std(ret)_last60 in RTH.
++- ewma_rvol_logret_094: RiskMetrics-style EWMA RV (lambda=0.94) on log returns (RTH).
++- iqr_vol_logret: Robust volatility via 0.7413*IQR of log returns.
++- return_vol_u_shape_ratio: ((std r in 09:30–10:29 + std r in 15:00–15:59)/2) / std r in 11:00–14:00 (log-returns).
++- robust_vol_mad_ret: Robust volatility via MAD on log returns.
++- rq_logret: Realized quarticity (N/3)*sum(r^4) using log returns.
++- rv_compaction_50pct_bars_frac: Fraction of RTH bars needed to reach 50% of Σ r^2 (compaction at the half-mass of realized variance).
++- rv_compaction_80pct_bars_frac: Fraction of RTH bars (by count) needed to accumulate 80% of Σ r^2 (log-returns), sorting r^2 descending.
++- rv_cond_down: RV contributed by down bars (simple ret<0) in RTH.
++- rv_cond_up: RV contributed by up bars (simple ret>0) in RTH.
++- rv_last15m_share: Share of RV from 15:45–15:59 within RTH.
++- rv_truncated_logret_k35: Realized variance of log returns after truncation at 3.5×MAD within 09:30–15:59; NaN if <3 returns.
++- rv_winsorized_logret_k35: Winsorized realized variance of log returns at 3.5×MAD within 09:30–15:59; NaN if <3 returns.
++- rvol_ewma_logret_097: EWMA instantaneous realized volatility (sqrt of EWMA of r^2) with λ=0.97 within 09:30–15:59.
++- rvol_logret: Realized volatility: sqrt of RV using log returns.
++- rvol_over_sqrt_trades: sqrt(RV)/sqrt(total trades) invariance proxy (RTH).
++- var_conc_top_decile: Share of realized variance contributed by the top 10% largest r^2.
++- vol_of_vol_absret: Std of first differences of |log returns| within 09:30–15:59; NaN if <3 valid diffs.
++
++## 收益类特征
++- cond_diff_next_ret_up_minus_down: Difference between next-return means after up vs down bars.
++- down_mean_absret: Mean absolute simple return conditional on ret<0.
++- endgame_drift_share_last60: Sum of log returns in 15:00–15:59 divided by total O→C log return (RTH only).
++- neg_semivar_ret: Negative semivariance of log returns.
++- next_ret_after_top_absret_decile: E[ret_{t+1} | |logret_t| in top decile].
++- next_ret_cond_down: Mean of next simple return conditional on current ret<0.
++- next_ret_cond_up: Mean of next simple return conditional on current ret>0.
++- oc_return_last30m_share: Net-return share from last 30 minutes of RTH.
++- opening_impulse_share_30m: Sum of log returns in 09:30–09:59 divided by total O→C log return (RTH only).
++- pac_ret_lag1_5: First significant PACF lag (1..5) for log returns; 0 if none. Significance ~ 1.96/sqrt(n).
++- pos_semivar_ret: Positive semivariance of log returns.
++- ret_up_down_abs_magnitude_ratio: Sum of positive |r| divided by sum of negative |r| for RTH log-returns.
++- reversal_prob_after_big_down: P(next ret > 0 | current ret in bottom 10%).
++- reversal_prob_after_big_up: P(next ret < 0 | current ret in top 10% by magnitude and positive).
++- share_in_runs_len_ge3: Share of return observations that belong to sign runs with length ≥ 3.
++- transition_asymmetry: P(up→up) - P(down→down) from simple-return signs (exclude zeros).
++- up_down_absret_ratio: Ratio of mean |ret| in up vs down states.
++- up_mean_absret: Mean absolute simple return conditional on ret>0.
++- vwap_cross_down_nextret: Mean next ret after downward VWAP crossing in RTH.
++- vwap_cross_up_nextret: Mean next ret after upward VWAP crossing in RTH.
++- zero_ret_share: Fraction of bars with near-zero simple returns (|ret|<=1e-10) in RTH.
++
++## 其他
++- absret_compaction_80pct_bars_frac: Fraction of RTH bars needed to accumulate 80% of Σ|r| (log-returns), sorting |r| descending.
++- bpv_logret: Bipower variation: (pi/2) * sum |r_t||r_{t-1}| using log returns.
++- dc_count_bps_10: Directional-change event count at 10bp threshold.
++- lz_complexity_signret: Lempel–Ziv complexity of the sign of log returns (zeros dropped), normalized by n/log2(n).
++- midday_smallmove_share_q25: Share of bars in 11:00–14:00 with |logret| ≤ overall RTH 25th percentile of |logret|.
++- next3_absret_highvol_minus_lowvol: E[Σ_{i=1..3}|r_{t+i}| | vol_t≥Q90] − E[Σ_{i=1..3}|r_{t+i}| | vol_t≤Q10], within RTH.
++- post_sum_n: After-hours sum(n) 16:00–23:59.
++- pre_sum_n: Pre-market sum(n) 00:00–09:29.
++- qn_vol_logret: Robust Qn scale (2.2219 * 1st quartile of pairwise |Δr|) for log returns.
++- roll_spread: Roll effective spread estimator from lag-1 autocovariance of price changes within 09:30–15:59.
++- semivar_pos_over_neg: Ratio of positive to negative semivariance of log returns.
++- signret_majority_agreement_share_m5: Share of bars where sign(r_t) equals the majority sign of the previous 5 nonzero returns (ties/insufficient skipped).
++- turning_point_count: Number of local extrema based on filtered sign flips of Δclose (theta=0.1).
++- vwap_cross_spacing_mean: Mean spacing between VWAP crossings as fraction of 389 minutes; NaN if <2 crossings.
