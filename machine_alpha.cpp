@@ -167,6 +167,18 @@ void bind_cube2mat_up_mean_absret(py::module& m);
 void bind_cube2mat_vwap_cross_down_nextret(py::module& m);
 void bind_cube2mat_vwap_cross_up_nextret(py::module& m);
 void bind_cube2mat_zero_ret_share(py::module& m);
+void bind_cube2mat_absret_compaction_80pct_bars_frac(py::module& m);
+void bind_cube2mat_bpv_logret(py::module& m);
+void bind_cube2mat_dc_count_bps_10(py::module& m);
+void bind_cube2mat_lz_complexity_signret(py::module& m);
+void bind_cube2mat_midday_smallmove_share_q25(py::module& m);
+void bind_cube2mat_next3_absret_highvol_minus_lowvol(py::module& m);
+void bind_cube2mat_qn_vol_logret(py::module& m);
+void bind_cube2mat_roll_spread(py::module& m);
+void bind_cube2mat_semivar_pos_over_neg(py::module& m);
+void bind_cube2mat_signret_majority_agreement_share_m5(py::module& m);
+void bind_cube2mat_turning_point_count(py::module& m);
+void bind_cube2mat_vwap_cross_spacing_mean(py::module& m);
 
 PYBIND11_MODULE(machine_alpha, m) {
     m.doc() = "collection of intraday features";
@@ -335,4 +347,16 @@ PYBIND11_MODULE(machine_alpha, m) {
     bind_cube2mat_vwap_cross_down_nextret(m);
     bind_cube2mat_vwap_cross_up_nextret(m);
     bind_cube2mat_zero_ret_share(m);
+    bind_cube2mat_absret_compaction_80pct_bars_frac(m);
+    bind_cube2mat_bpv_logret(m);
+    bind_cube2mat_dc_count_bps_10(m);
+    bind_cube2mat_lz_complexity_signret(m);
+    bind_cube2mat_midday_smallmove_share_q25(m);
+    bind_cube2mat_next3_absret_highvol_minus_lowvol(m);
+    bind_cube2mat_qn_vol_logret(m);
+    bind_cube2mat_roll_spread(m);
+    bind_cube2mat_semivar_pos_over_neg(m);
+    bind_cube2mat_signret_majority_agreement_share_m5(m);
+    bind_cube2mat_turning_point_count(m);
+    bind_cube2mat_vwap_cross_spacing_mean(m);
 }
